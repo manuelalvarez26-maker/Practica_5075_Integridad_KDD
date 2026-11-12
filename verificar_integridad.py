@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-Fase 1: Pasarela de Integridad Criptográfica SHA-256 por Lotes.
-Cubre CE 3.a y CE 3.b (Real Decreto 279/2021).
-"""
-
 import hashlib
 import json
 import logging
