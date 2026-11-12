@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-"""
-Fases 2 y 3: Pipeline de Saneamiento, Detección de Outliers y Perfilado ISO/IEC 25012 para KDD.
-Adaptado al esquema real: id_transaccion, tienda, timestamp, categoria, importe_eur, unidades, metodo_pago.
-Cubre CE 3.c, CE 3.d, CE 5.a y CE 5.b (Real Decreto 279/2021).
-"""
-
 import json
 import logging
 from datetime import datetime
@@ -57,7 +50,6 @@ def ejecutar_pipeline_kdd() -> None:
     total_inicial = len(df_bruto)
     logger.info(f"Registros cargados desde staging/verified/: {total_inicial}")
 
-    # Métricas previas al saneamiento (ISO/IEC 25012)
     cols_negocio = ["id_transaccion", "tienda", "timestamp", "categoria", "importe_eur", "unidades", "metodo_pago"]
     sin_nulos_previo = int(df_bruto[cols_negocio].dropna().shape[0])
     completitud_previa = round((sin_nulos_previo / total_inicial) * 100, 2)
@@ -76,18 +68,14 @@ def ejecutar_pipeline_kdd() -> None:
             logger.warning(f"[CUARENTENA] {len(malos)} registro(s) segregados -> {motivo}")
         df_work = df_work[~mascara].copy()
 
-    # 1. Nulos en columnas obligatorias
     cols_obligatorias = ["id_transaccion", "timestamp", "importe_eur", "unidades"]
     faltantes = set(cols_obligatorias) - set(df_work.columns)
     if faltantes:
         raise ValueError(f"Schema drift detectado: faltan {faltantes}")
 
     segregar(df_work[cols_obligatorias].isna().any(axis=1), "NULO_EN_COLUMNA_OBLIGATORIA")
-
-    # 2. Control de unicidad por id_transaccion
     segregar(df_work.duplicated(subset=["id_transaccion"], keep="first"), "DUPLICADO_ID_TRANSACCION")
 
-    # 3. Coherencia temporal (ISO 8601 y año en curso 2026 sin fechas futuras)
     ts_parsed = pd.to_datetime(df_work["timestamp"], errors="coerce")
     ahora = pd.Timestamp.now()
     inicio_anio = pd.Timestamp(year=ahora.year, month=1, day=1)
@@ -96,7 +84,6 @@ def ejecutar_pipeline_kdd() -> None:
 
     df_work["timestamp"] = pd.to_datetime(df_work["timestamp"]).dt.strftime("%Y-%m-%d %H:%M:%S")
 
-    # 4. Reglas de dominio de negocio (importe_eur > 0 y unidades >= 1)
     df_work["importe_eur"] = pd.to_numeric(df_work["importe_eur"], errors="coerce")
     df_work["unidades"] = pd.to_numeric(df_work["unidades"], errors="coerce")
     mask_dominio = (
@@ -107,7 +94,6 @@ def ejecutar_pipeline_kdd() -> None:
     )
     segregar(mask_dominio, "VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES")
 
-    # 5. Detección estadística de outliers extremos (Método robusto 3.0 x IQR)
     q1 = df_work["importe_eur"].quantile(0.25)
     q3 = df_work["importe_eur"].quantile(0.75)
     iqr = q3 - q1
@@ -120,7 +106,6 @@ def ejecutar_pipeline_kdd() -> None:
         f"OUTLIER_ESTADISTICO_IMPORTE (fuera de [{lim_inf:.2f}, {lim_sup:.2f}] EUR)",
     )
 
-    # 6. Imputación de variables categóricas secundarias por la moda
     imputaciones_detalle = {}
     for col_cat in ["categoria", "metodo_pago"]:
         if col_cat in df_work.columns:
@@ -136,7 +121,6 @@ def ejecutar_pipeline_kdd() -> None:
     df_work["unidades"] = df_work["unidades"].astype(int)
     df_work["importe_eur"] = df_work["importe_eur"].round(2)
 
-    # Exportar registros rechazados a cuarentena
     total_rechazados = 0
     df_cuarentena = pd.DataFrame()
     if cuarentena:
@@ -145,12 +129,10 @@ def ejecutar_pipeline_kdd() -> None:
         df_cuarentena.to_csv(QUARANTINE_DIR / "bad_records.csv", index=False)
         logger.info(f"Registros no conformes aislados en quarantine/bad_records.csv ({total_rechazados} filas).")
 
-    # Exportar dataset final conforme para KDD / BI
     ruta_salida = PROCESSED_DIR / "dataset_kdd_listo.csv"
     df_work.to_csv(ruta_salida, index=False)
     logger.info(f"Dataset saneado exportado a {ruta_salida} ({len(df_work)} registros válidos).")
 
-    # === FASE 3: PERFILADO ISO/IEC 25012 E INFORME TÉCNICO ===
     logger.info("=== INICIO FASE 3: PERFILADO DE CALIDAD ISO/IEC 25012 Y REPORTE BI ===")
 
     audit_f1 = json.loads(AUDIT_FASE1_PATH.read_text(encoding="utf-8")) if AUDIT_FASE1_PATH.exists() else {}
