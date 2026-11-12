@@ -1,0 +1,22 @@
+MANIFIESTO DE CUARENTENA - PIPELINE DE INTEGRIDAD Y SANEAMIENTO KDD
+Fecha de ejecución: 2026-11-12 20:07:05
+========================================================================
+[FASE 1 - FICHEROS RECHAZADOS POR INTEGRIDAD SHA-256]
+- transacciones_tienda_sur.csv | Motivo: FIRMA_SHA256_DISCREPANTE | Esperado: 0773c2cde0d45d3bfea53ebe6a0ad9f8fd7f04dabd23f55e737f64918128b83c | Calculado: 1c47dff4bf34eff59390c211052be942851d158740366ab4ab35159fd9986805
+
+[FASE 2 - REGISTROS SEGREGADOS EN CUARENTENA (quarantine/bad_records.csv)]
+Total de registros aislados: 13
+------------------------------------------------------------------------
+01. ID: NULL | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 09:18:17 | Importe: 102.4 EUR | Unidades: 1 | Motivo: NULO_EN_COLUMNA_OBLIGATORIA
+02. ID: NULL | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 14:04:56 | Importe: 48.25 EUR | Unidades: 5 | Motivo: NULO_EN_COLUMNA_OBLIGATORIA
+03. ID: TXE-20261110-0034 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 15:15:21 | Importe: NULL | Unidades: 3 | Motivo: NULO_EN_COLUMNA_OBLIGATORIA
+04. ID: TXE-20261110-0010 | Fichero: transacciones_tienda_este.csv | Timestamp: 2027-08-21 14:22:10 | Importe: 58.31 EUR | Unidades: 4 | Motivo: TIMESTAMP_CORRUPTO_O_FUERA_DE_ANIO_EN_CURSO
+05. ID: TXE-20261110-0022 | Fichero: transacciones_tienda_este.csv | Timestamp: 2024-02-11 09:10:05 | Importe: 31.23 EUR | Unidades: 4 | Motivo: TIMESTAMP_CORRUPTO_O_FUERA_DE_ANIO_EN_CURSO
+06. ID: TXE-20261110-0039 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-99-99 INVALID_TS | Importe: 70.79 EUR | Unidades: 5 | Motivo: TIMESTAMP_CORRUPTO_O_FUERA_DE_ANIO_EN_CURSO
+07. ID: TXE-20261110-0012 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 11:12:26 | Importe: -34.5 EUR | Unidades: 2 | Motivo: VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+08. ID: TXE-20261110-0018 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 12:29:50 | Importe: 0.0 EUR | Unidades: 2 | Motivo: VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+09. ID: TXE-20261110-0025 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 13:32:18 | Importe: 57.52 EUR | Unidades: 0 | Motivo: VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+10. ID: TXE-20261110-0042 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 16:42:04 | Importe: 115.74 EUR | Unidades: -3 | Motivo: VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+11. ID: TXE-20261110-0016 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 12:02:54 | Importe: 1480.0 EUR | Unidades: 1 | Motivo: OUTLIER_ESTADISTICO_IMPORTE (fuera de [-44.85, 188.65] EUR)
+12. ID: TXE-20261110-0032 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 14:48:52 | Importe: 2750.9 EUR | Unidades: 4 | Motivo: OUTLIER_ESTADISTICO_IMPORTE (fuera de [-44.85, 188.65] EUR)
+13. ID: TXE-20261110-0047 | Fichero: transacciones_tienda_este.csv | Timestamp: 2026-11-10 17:48:18 | Importe: 4120.0 EUR | Unidades: 6 | Motivo: OUTLIER_ESTADISTICO_IMPORTE (fuera de [-44.85, 188.65] EUR)
