@@ -1,0 +1,18 @@
+2026-11-12 19:30:38 | INFO     | === INICIO FASE 1: VALIDACIÓN CRIPTOGRÁFICA SHA-256 ===
+2026-11-12 19:30:38 | INFO     | [VERIFICADO] transacciones_tienda_norte.csv -> Promovido a staging\verified/ (SHA-256: 34cc61612494703f...)
+2026-11-12 19:30:38 | ERROR    | [ALERTA SEGURIDAD] Firma discrepante en 'transacciones_tienda_sur.csv'. Esperado: 0773c2cde0d45d3b... | Calculado: 1c47dff4bf34eff5... -> Segregado a quarantine\tampered\transacciones_tienda_sur.csv
+2026-11-12 19:30:38 | INFO     | [VERIFICADO] transacciones_tienda_este.csv -> Promovido a staging\verified/ (SHA-256: 645e9de21d1fbe99...)
+2026-11-12 19:30:38 | INFO     | === FIN FASE 1 | Validados: 2/3 (66.67%) | Cuarentena: 1 ===
+2026-11-12 19:30:49 | INFO     | === INICIO FASE 2: SANEAMIENTO Y COHERENCIA DE DATOS ===
+2026-11-12 19:30:49 | INFO     | Registros cargados desde staging/verified/: 100
+2026-11-12 19:30:49 | WARNING  | [CUARENTENA] 3 registro(s) segregados -> NULO_EN_COLUMNA_OBLIGATORIA
+2026-11-12 19:30:49 | WARNING  | [CUARENTENA] 3 registro(s) segregados -> TIMESTAMP_CORRUPTO_O_FUERA_DE_ANIO_EN_CURSO
+2026-11-12 19:30:49 | WARNING  | [CUARENTENA] 4 registro(s) segregados -> VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+2026-11-12 19:30:49 | WARNING  | [CUARENTENA] 3 registro(s) segregados -> OUTLIER_ESTADISTICO_IMPORTE (fuera de [-44.85, 188.65] EUR)
+2026-11-12 19:30:49 | INFO     | [IMPUTACIÓN] Imputados 1 nulo(s) en 'categoria' con la moda ('Electronica').
+2026-11-12 19:30:49 | INFO     | [IMPUTACIÓN] Imputados 1 nulo(s) en 'metodo_pago' con la moda ('Transferencia').
+2026-11-12 19:30:49 | INFO     | Registros no conformes aislados en quarantine/bad_records.csv (13 filas).
+2026-11-12 19:30:49 | INFO     | Dataset saneado exportado a processed\dataset_kdd_listo.csv (87 registros válidos).
+2026-11-12 19:30:49 | INFO     | === INICIO FASE 3: PERFILADO DE CALIDAD ISO/IEC 25012 Y REPORTE BI ===
+2026-11-12 19:30:49 | INFO     | Informe técnico generado en INFORME_CALIDAD_KDD.md
+2026-11-12 19:30:49 | INFO     | === PIPELINE COMPLETADO CON ÉXITO ===

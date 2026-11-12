@@ -1,0 +1,14 @@
+id_transaccion,tienda,timestamp,categoria,importe_eur,unidades,metodo_pago,fichero_origen,motivo_rechazo
+,Este_Valencia,2026-11-10 09:18:17,Electronica,102.4,1,Bizum,transacciones_tienda_este.csv,NULO_EN_COLUMNA_OBLIGATORIA
+,Este_Valencia,2026-11-10 14:04:56,Electronica,48.25,5,Tarjeta,transacciones_tienda_este.csv,NULO_EN_COLUMNA_OBLIGATORIA
+TXE-20261110-0034,Este_Valencia,2026-11-10 15:15:21,Alimentacion,,3,Efectivo,transacciones_tienda_este.csv,NULO_EN_COLUMNA_OBLIGATORIA
+TXE-20261110-0010,Este_Valencia,2027-08-21 14:22:10,Alimentacion,58.31,4,Transferencia,transacciones_tienda_este.csv,TIMESTAMP_CORRUPTO_O_FUERA_DE_ANIO_EN_CURSO
+TXE-20261110-0022,Este_Valencia,2024-02-11 09:10:05,Hogar,31.23,4,Transferencia,transacciones_tienda_este.csv,TIMESTAMP_CORRUPTO_O_FUERA_DE_ANIO_EN_CURSO
+TXE-20261110-0039,Este_Valencia,2026-99-99 INVALID_TS,Textil,70.79,5,Transferencia,transacciones_tienda_este.csv,TIMESTAMP_CORRUPTO_O_FUERA_DE_ANIO_EN_CURSO
+TXE-20261110-0012,Este_Valencia,2026-11-10 11:12:26,Hogar,-34.5,2,Tarjeta,transacciones_tienda_este.csv,VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+TXE-20261110-0018,Este_Valencia,2026-11-10 12:29:50,Alimentacion,0.0,2,Efectivo,transacciones_tienda_este.csv,VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+TXE-20261110-0025,Este_Valencia,2026-11-10 13:32:18,Textil,57.52,0,Efectivo,transacciones_tienda_este.csv,VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+TXE-20261110-0042,Este_Valencia,2026-11-10 16:42:04,Textil,115.74,-3,Efectivo,transacciones_tienda_este.csv,VIOLACION_REGLA_DOMINIO_IMPORTE_O_UNIDADES
+TXE-20261110-0016,Este_Valencia,2026-11-10 12:02:54,Hogar,1480.0,1,Bizum,transacciones_tienda_este.csv,"OUTLIER_ESTADISTICO_IMPORTE (fuera de [-44.85, 188.65] EUR)"
+TXE-20261110-0032,Este_Valencia,2026-11-10 14:48:52,Hogar,2750.9,4,Transferencia,transacciones_tienda_este.csv,"OUTLIER_ESTADISTICO_IMPORTE (fuera de [-44.85, 188.65] EUR)"
+TXE-20261110-0047,Este_Valencia,2026-11-10 17:48:18,Hogar,4120.0,6,Efectivo,transacciones_tienda_este.csv,"OUTLIER_ESTADISTICO_IMPORTE (fuera de [-44.85, 188.65] EUR)"

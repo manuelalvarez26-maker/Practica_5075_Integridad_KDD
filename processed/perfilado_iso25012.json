@@ -1,0 +1,60 @@
+{
+  "fecha_generacion": "2026-11-12 19:30:49",
+  "estandar_calidad": "ISO/IEC 25012",
+  "fase_1_integridad_criptografica": {
+    "timestamp_ejecucion": "2026-11-12 19:30:38",
+    "archivos_evaluados": 3,
+    "archivos_validados": 2,
+    "archivos_rechazados": 1,
+    "tasa_integridad_criptografica_pct": 66.67,
+    "detalle_ficheros": [
+      {
+        "archivo": "transacciones_tienda_norte.csv",
+        "estado": "VERIFICADO",
+        "hash_esperado": "34cc61612494703f00d1ac0c72c31366f5d4fb9b7e373344cc346d9ddd86a549",
+        "hash_calculado": "34cc61612494703f00d1ac0c72c31366f5d4fb9b7e373344cc346d9ddd86a549"
+      },
+      {
+        "archivo": "transacciones_tienda_sur.csv",
+        "estado": "RECHAZADO_HASH_DISCREPANTE",
+        "hash_esperado": "0773c2cde0d45d3bfea53ebe6a0ad9f8fd7f04dabd23f55e737f64918128b83c",
+        "hash_calculado": "1c47dff4bf34eff59390c211052be942851d158740366ab4ab35159fd9986805"
+      },
+      {
+        "archivo": "transacciones_tienda_este.csv",
+        "estado": "VERIFICADO",
+        "hash_esperado": "645e9de21d1fbe99813a076149f4d21e96f9e4e07390b33d45a94abfb3cd4dc9",
+        "hash_calculado": "645e9de21d1fbe99813a076149f4d21e96f9e4e07390b33d45a94abfb3cd4dc9"
+      }
+    ]
+  },
+  "fase_2_saneamiento": {
+    "registros_ingestados_staging": 100,
+    "registros_segregados_cuarentena": 13,
+    "registros_conformes_bi": 87,
+    "tasa_validez_lote_pct": 87.0,
+    "tasa_completitud_previa_pct": 95.0,
+    "tasa_completitud_final_pct": 100.0,
+    "tasa_unicidad_previa_pct": 98.0,
+    "tasa_unicidad_final_pct": 100.0,
+    "imputaciones_secundarias": {
+      "categoria": {
+        "nulos": 1,
+        "valor_imputado": "Electronica"
+      },
+      "metodo_pago": {
+        "nulos": 1,
+        "valor_imputado": "Transferencia"
+      }
+    }
+  },
+  "distribucion_importe_eur_post_limpieza": {
+    "media_eur": 70.99,
+    "mediana_eur": 73.44,
+    "desviacion_estandar_eur": 26.34,
+    "percentil_25_eur": 53.8,
+    "percentil_75_eur": 85.34,
+    "min_eur": 12.5,
+    "max_eur": 124.47
+  }
+}
